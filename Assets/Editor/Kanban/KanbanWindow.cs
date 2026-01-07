@@ -72,19 +72,25 @@ public class KanbanWindow : EditorWindow
         }
     }
 
+    private bool IsTextFieldFocused()
+    {
+        var focused = GUI.GetNameOfFocusedControl();
+        return focused == "QuickAddField" || focused == "SearchField" || GUIUtility.keyboardControl != 0;
+    }
+
     private void HandleHotkeys()
     {
         var evt = Event.current;
         if (evt.type != EventType.KeyDown) return;
 
-        // N - new task
-        if (evt.keyCode == KeyCode.N && !evt.control && !evt.command)
+        // Skip hotkeys when typing in text fields (except Escape)
+        if (IsTextFieldFocused() && evt.keyCode != KeyCode.Escape)
         {
-            GUI.FocusControl("QuickAddField");
-            evt.Use();
+            return;
         }
-        // Delete - delete selected
-        else if ((evt.keyCode == KeyCode.Delete || evt.keyCode == KeyCode.Backspace) && selectedTask != null)
+
+        // Delete - delete selected (only with modifier to avoid accidents)
+        if ((evt.keyCode == KeyCode.Delete) && selectedTask != null && (evt.control || evt.command))
         {
             if (EditorUtility.DisplayDialog("Delete", $"Delete \"{selectedTask.title}\"?", "Delete", "Cancel"))
             {
@@ -94,14 +100,14 @@ public class KanbanWindow : EditorWindow
             }
             evt.Use();
         }
-        // D - duplicate selected
+        // Ctrl+D - duplicate selected
         else if (evt.keyCode == KeyCode.D && (evt.control || evt.command) && selectedTask != null)
         {
             DuplicateTask(selectedTask);
             evt.Use();
         }
         // Arrow keys - move selected task
-        else if (selectedTask != null)
+        else if (selectedTask != null && (evt.control || evt.command))
         {
             if (evt.keyCode == KeyCode.LeftArrow && selectedTask.status != KanbanStatus.Backlog)
             {
@@ -118,13 +124,13 @@ public class KanbanWindow : EditorWindow
                 evt.Use();
             }
         }
-        // A - archive all done
+        // Ctrl+Shift+A - archive all done
         else if (evt.keyCode == KeyCode.A && (evt.control || evt.command) && evt.shift)
         {
             ArchiveAllDone();
             evt.Use();
         }
-        // Escape - deselect
+        // Escape - deselect and unfocus
         else if (evt.keyCode == KeyCode.Escape)
         {
             selectedTask = null;
@@ -179,6 +185,7 @@ public class KanbanWindow : EditorWindow
 
             // Search
             GUILayout.Label("🔍", GUILayout.Width(18));
+            GUI.SetNextControlName("SearchField");
             search = GUILayout.TextField(search, EditorStyles.toolbarTextField, GUILayout.Width(120));
             if (!string.IsNullOrEmpty(search) && GUILayout.Button("✕", EditorStyles.toolbarButton, GUILayout.Width(20)))
             {
@@ -199,14 +206,13 @@ public class KanbanWindow : EditorWindow
     private void ShowHotkeyHelp()
     {
         EditorUtility.DisplayDialog("Hotkeys",
-            "N - Focus quick add field\n" +
-            "Enter - Add task (when typing)\n" +
-            "← → - Move selected task\n" +
-            "Ctrl+D - Duplicate selected\n" +
-            "Delete - Delete selected\n" +
-            "Ctrl+Shift+A - Archive all done\n" +
-            "Escape - Deselect\n" +
-            "Ctrl+Shift+K - Open Kanban",
+            "Enter - Add task (when typing in field)\n" +
+            "Ctrl + ← → - Move selected task\n" +
+            "Ctrl + D - Duplicate selected\n" +
+            "Ctrl + Delete - Delete selected\n" +
+            "Ctrl + Shift + A - Archive all done\n" +
+            "Escape - Deselect / Unfocus\n" +
+            "Ctrl + Shift + K - Open Kanban window",
             "OK");
     }
 
