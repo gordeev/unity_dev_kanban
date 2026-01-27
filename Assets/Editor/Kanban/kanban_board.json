@@ -1,0 +1,92 @@
+{
+    "tasks": [
+        {
+            "id": "803b9199",
+            "title": "level editor",
+            "notes": "",
+            "status": 0,
+            "priority": 2,
+            "tags": "",
+            "link": "",
+            "archived": false,
+            "createdAt": "2026-01-08 00:21",
+            "subtasks": [],
+            "log": [
+                {
+                    "timestamp": "2026-01-08 00:21",
+                    "action": "Created"
+                },
+                {
+                    "timestamp": "2026-01-08 00:21",
+                    "action": "Moved to Backlog"
+                }
+            ]
+        },
+        {
+            "id": "29fe13e4",
+            "title": "level generator",
+            "notes": "python script to generate levels",
+            "status": 2,
+            "priority": 2,
+            "tags": "levels, gamedesign",
+            "link": "",
+            "archived": false,
+            "createdAt": "2026-01-08 00:21",
+            "subtasks": [],
+            "log": [
+                {
+                    "timestamp": "2026-01-08 00:21",
+                    "action": "Created"
+                },
+                {
+                    "timestamp": "2026-01-08 00:21",
+                    "action": "Moved to Doing"
+                }
+            ]
+        },
+        {
+            "id": "710ca513",
+            "title": "fix light",
+            "notes": "add second spot light",
+            "status": 1,
+            "priority": 2,
+            "tags": "design",
+            "link": "",
+            "archived": false,
+            "createdAt": "2026-01-08 00:21",
+            "subtasks": [],
+            "log": [
+                {
+                    "timestamp": "2026-01-08 00:21",
+                    "action": "Created"
+                }
+            ]
+        },
+        {
+            "id": "9d4c5e77",
+            "title": "buy Simple Kanban",
+            "notes": "",
+            "status": 2,
+            "priority": 0,
+            "tags": "",
+            "link": "https://assetstore.unity.com/packages/slug/354330",
+            "archived": false,
+            "createdAt": "2026-01-08 00:23",
+            "subtasks": [],
+            "log": [
+                {
+                    "timestamp": "2026-01-08 00:23",
+                    "action": "Created"
+                },
+                {
+                    "timestamp": "2026-01-08 00:23",
+                    "action": "Moved to Doing"
+                },
+                {
+                    "timestamp": "2026-01-08 00:23",
+                    "action": "Priority: 2 → 0"
+                }
+            ]
+        }
+    ]
+}
